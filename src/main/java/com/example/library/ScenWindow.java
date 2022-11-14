@@ -1,10 +1,15 @@
 package com.example.library;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ScenWindow {
+import java.io.IOException;
+import java.util.Objects;
+
+public class ScenWindow extends BookArea{
 
     private Stage stage;
     private Scene scene;
@@ -33,4 +38,6 @@ public class ScenWindow {
     public void setRoot(Parent root) {
         this.root = root;
     }
+
+
 }

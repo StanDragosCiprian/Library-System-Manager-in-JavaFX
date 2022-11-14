@@ -3,6 +3,7 @@ package com.example.library;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MySqlConnect {
     /*
@@ -15,7 +16,8 @@ public class MySqlConnect {
     private String databasePassword;
     private Connection con;
 
-    List<LogInObject> objectList=new ArrayList<>();
+    List<LogInObject> objectList = new ArrayList<>();
+
     public MySqlConnect() {
         this.MySQLURL = "jdbc:mysql://localhost:3310/libraryporjectjava?useSSL=false";
         this.databseUserName = "root";
@@ -50,7 +52,8 @@ public class MySqlConnect {
             System.err.println(e.getMessage());
         }
     }
-    public List<LogInObject> Select(){
+
+    public List<LogInObject> Select() {
 
         try {
             String query = "SELECT * FROM log_in";
@@ -68,7 +71,7 @@ public class MySqlConnect {
                 String Name = rs.getString("Name");
                 String Email = rs.getString("Email");
                 String Password = rs.getString("Password");
-                LogInObject logInObject=new LogInObject(id,Name,Email,Password);
+                LogInObject logInObject = new LogInObject(id, Name, Email, Password);
                 objectList.add(logInObject);
 
 
@@ -80,16 +83,27 @@ public class MySqlConnect {
         }
         return objectList;
     }
-    public boolean isNotDublicate(String Email){
-        objectList=Select();
-        for (int i = 0; i < objectList.size(); i++) {
-            if(objectList.get(i).getEmail().equals(Email)){
-                return true;
+
+    public boolean isNotDublicate(String Email) {
+        this.objectList = Select();
+        for (LogInObject z : objectList.stream().filter(z -> z.getEmail().equals(Email)).toList()) {
+            return false;
+        }
+        return true;
+    }
+    public boolean uniqAccount(String Email,String Password){
+        this.objectList = Select();
+        boolean ceva=false;
+
+        for (int i = 0; i <= this.objectList.size(); i++) {
+            if(this.objectList.get(i).getEmail().equals(Email)&&this.objectList.get(i).getPassword().equals(Password)){
+                ceva= true;
+                break;
             }else {
-                return false;
+                ceva= false;
             }
         }
-        return false;
+        return ceva;
     }
 
 }

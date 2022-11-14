@@ -36,7 +36,7 @@ public class LogIn extends ScenWindow {
     @FXML
     void sendData(ActionEvent event) throws SQLException, IOException {
         mySqlConnect.getConnection();
-
+        if (mySqlConnect.isNotDublicate(email.getText())) {
             String query = "INSERT INTO log_in (Name, Email, Password) VALUES('" + name.getText() + "','" + email.getText() + "','" + passworld.getText() + "')";
             mySqlConnect.getConnection();
             mySqlConnect.mySqlInsertQuery(query);
@@ -46,7 +46,10 @@ public class LogIn extends ScenWindow {
             setScene(new Scene(getRoot()));
             getStage().setScene(getScene());
             getStage().show();
-
+            getStage().resizableProperty().setValue(false);
+        } else {
+            popUp.setVisible(true);
+        }
     }
 
 

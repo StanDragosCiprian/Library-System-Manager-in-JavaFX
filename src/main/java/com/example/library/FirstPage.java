@@ -23,35 +23,34 @@ public class FirstPage extends ScenWindow{
 
 
 public void generatePage(String fxmlFile) throws IOException {
+
     setRoot(FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile))));
     setScene(new Scene(getRoot()));
     setStage(new Stage());
     getStage().setScene(getScene());
     getStage().show();
+    getStage().resizableProperty().setValue(false);
 }
 
     public void switchToScene2(ActionEvent event) throws IOException {
-        setRoot(FXMLLoader.load(getClass().getResource("LogIn.fxml")));
+        setRoot(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogIn.fxml"))));
         setStage((Stage)((Node)event.getSource()).getScene().getWindow());
         setScene(new Scene(getRoot()));
        getStage().setScene(getScene());
        getStage().show();
-
+getStage().resizableProperty().setValue(false);
     }
 
 
-    @FXML
-    void logInEvent(ActionEvent event)  {
 
-        //FileSystem fileSystem=new FileSystem("C:\\Users\\Retro\\IdeaProjects\\Library\\src\\main\\java\\com\\example\\library\\pass.txt");
-       //"LogIn.fxml"
-
-
-
-    }
 
     @FXML
-    void signInEvent(ActionEvent event) {
-
+    void signInEvent(ActionEvent event) throws IOException {
+        setRoot(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SignIn.fxml"))));
+        setStage((Stage)((Node)event.getSource()).getScene().getWindow());
+        setScene(new Scene(getRoot()));
+        getStage().setScene(getScene());
+        getStage().show();
+        getStage().resizableProperty().setValue(false);
     }
 }
