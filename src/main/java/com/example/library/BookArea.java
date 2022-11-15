@@ -5,13 +5,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.awt.*;
 
-public class BookArea implements Controll{
+public class BookArea {
 
 
-    @FXML
-    public AnchorPane Grid2;
 
-    @FXML
-    public ScrollPane scroll;
 
 }

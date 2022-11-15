@@ -1,17 +1,16 @@
 package com.example.library;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.NodeOrientation;
+import javafx.scene.AccessibleRole;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.example.library.Controll.Grid;
 
-public class SignIn extends ScenWindow implements Controll{
+
+public class SignIn extends ScenWindow {
 
     @FXML
     private TextField email;
@@ -46,17 +45,31 @@ try {
         setRoot(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("BookArea.fxml"))));
         setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
 
-        AnchorPane Grid2=new AnchorPane();
-
+AnchorPane Grid=new AnchorPane();
+Grid.heightProperty().add(1000);
         for (int i = 0; i < 100; i++) {
-            Label da=new Label(" 21 ");
-            da.setTranslateX(i*30);
-            Grid2.getChildren().add(da);
+            HBox hBox=new HBox();
+            Label label=new Label(String.valueOf(i));
+            hBox.getChildren().add(label);
+            hBox.setTranslateY(i*30);
+            Grid.getChildren().add(hBox);
         }
+
+
         ScrollPane root = new ScrollPane();
+        root.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        root.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        root.accessibleRoleProperty().setValue(AccessibleRole.SCROLL_PANE);
+        root.nodeOrientationProperty().setValue(NodeOrientation.INHERIT);
+        root.blendModeProperty().setValue(BlendMode.SRC_OVER);
         root.setPrefWidth(400);
         root.setPrefHeight(180);
-        root.setContent(Grid2);
+        root.setVmin(0);
+        root.setVmax(1);
+        root.vvalueProperty().setValue(1);
+        root.vvalueProperty().set(1);
+        root.vvalueProperty().add(1);
+        root.setContent(Grid);
 
 
 
